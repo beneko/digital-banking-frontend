@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from '../services/customer.service';
 
 @Component({
   selector: 'app-customers',
@@ -8,16 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomersComponent implements OnInit {
 
-  constructor(private httpClient:HttpClient) { }
-
   customers : any;
 
+  constructor(private customerService : CustomerService) { }
+
   ngOnInit(): void {
-    this.httpClient.get("http://localhost:8080/v1/customers").subscribe({
-      next : (data) => {
+    this.customerService.getCustomers().subscribe({
+      next : (data)=>{
         this.customers=data;
       },
-      error : (err)=>{
+      error :(err)=>{
         console.log(err);
       }
     })
