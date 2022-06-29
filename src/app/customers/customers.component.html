@@ -1,5 +1,5 @@
 <div class="container m-5">
-  <ng-container *ngIf="customers; else failureorLoading">
+  <ng-container *ngIf="customers | async; else failureOrLoading">
     <div class="card" *ngIf="customers">
       <div class="card-header">
         <div class="card-body">
@@ -12,7 +12,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let customer of customers">
+              <tr *ngFor="let customer of customers | async">
                 <td>{{ customer.id }}</td>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.email }}</td>
@@ -23,7 +23,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-template #failureorLoading>
+  <ng-template #failureOrLoading>
     <ng-container *ngIf="errorMessage; else loading">
       <div class="text-danger">
         {{ errorMessage }}
