@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpClient:HttpClient) { }
+
+  customers : any;
 
   ngOnInit(): void {
+    this.httpClient.get("http://localhost:8080/v1/customers").subscribe(data => {
+      this.customers = data;
+    })
   }
 
 }
