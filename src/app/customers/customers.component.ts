@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Customer } from '../model/customer.model';
 import { CustomerService } from '../services/customer.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { CustomerService } from '../services/customer.service';
 })
 export class CustomersComponent implements OnInit {
 
-  customers : any;
+  customers! : Array<Customer>;
+  errorMessage! : string;
 
   constructor(private customerService : CustomerService) { }
 
@@ -18,7 +20,7 @@ export class CustomersComponent implements OnInit {
         this.customers=data;
       },
       error :(err)=>{
-        console.log(err);
+        this.errorMessage=err.message;
       }
     })
   }
