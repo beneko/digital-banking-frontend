@@ -2,24 +2,35 @@
   <ng-container *ngIf="customers | async; else failureOrLoading">
     <div class="card" *ngIf="customers">
       <div class="card-header">
-        <div class="card-body">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let customer of customers | async">
-                <td>{{ customer.id }}</td>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.email }}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div *ngIf="searchFormGroup">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchCustomers()">
+            <div class="input-group">
+              <label for="keyword" class="input-group-text">keyword : </label>
+              <input type="text" formControlName="keyword" class="form-control">
+              <button class="btn btn-info">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
         </div>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let customer of customers | async">
+              <td>{{ customer.id }}</td>
+              <td>{{ customer.name }}</td>
+              <td>{{ customer.email }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </ng-container>
